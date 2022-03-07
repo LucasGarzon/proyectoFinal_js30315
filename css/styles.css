@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.5rem;
+
+}
+
+.header__nav {
+    background-color: #8FA89F;
+    /* background: #95bead; */
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.main__container, .mainSimulador {
+    background: #95bead;
+    background: linear-gradient(84deg,#95bead 10%, #8fa89f 90%);
+    background: -webkit-linear-gradient(84deg,#95bead 10%, #8fa89f 90%);
+    background: -moz-linear-gradient(84deg,#95bead 10%, #8fa89f 90%); 
+}
+
+.main__container h1, .texto_blanco, .texto_blanco--2{
+    color: white;
+}
+
+ul li {
+    list-style: none;
+}
+
+.main__container--img {
+    filter: invert(1);
+}
+
+footer {
+    background: #ffffff;
+}
+
+footer a {
+    list-style: none;
+    text-decoration: none;
+    color: #8FA89F;
+}
+
+.btn-success {
+    background-color: #6B847B;
+    border: #777A66;
+}
+
+.btn-success:hover {
+    background-color: #4C4E41;
+}
+
