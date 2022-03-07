@@ -34,10 +34,6 @@ ul li {
     list-style: none;
 }
 
-.main__container--img {
-    filter: invert(1);
-}
-
 footer {
     background: #ffffff;
 }
