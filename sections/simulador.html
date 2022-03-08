@@ -42,14 +42,14 @@
         <div class="container">
             <div class="row col-12 overflow-hidden p-4 m-auto">
                 <h2 class="col-12 mb-4 texto_blanco text-center">Ingresa tus gastos</h2>
-                <div>
+                <div class="text-center">
                     <button class="btn btn-success texto_blanco mb-2 mx-auto col-12 col-lg-8" onclick="cargarInfo()">Crear nuevas Categorías</button>
                     <form action="" class="col-12 col-lg-8 d-flex flex-column m-auto">
                         <select name="selectorArea" id="sArea" class="mb-2">
                             <option selected disabled>Categoría</option>
                         </select>
                         <input type="text" class="mb-2" id="tipoProducto" placeholder="Producto">
-                        <input type="number" class="text-end mb-2" id="precioProducto" step=0.01>
+                        <input type="number" class="mb-2" id="precioProducto" step=0.01>
                     </form>
                     <button class="btn btn-success texto_blanco mb-2 col-12 col-lg-8" onclick="cargarGasto()">Cargar gasto</button>
                 </div>
