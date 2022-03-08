@@ -35,8 +35,8 @@
         <div class="container">
             <dirv class="row p-4 pb-1 m-auto">
                 <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
-                <p class="texto_blanco">¡Hola <span id="nombreUsuario"></span>!, este es un simulador de gastos. A continuación deberas:</p>
-                <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar un identificador para tu gasto<br>3- Ponerle un precio</p>
+                <p class="texto_blanco">¡Hola <span id="nombreUsuario"></span>! A continuación podrás:</p>
+                <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
             </dirv>
         </div>
         <div class="container">
@@ -45,11 +45,11 @@
                 <div class="text-center">
                     <button class="btn btn-success texto_blanco mb-2 mx-auto col-12 col-lg-8" onclick="cargarInfo()">Crear nuevas Categorías</button>
                     <form action="" class="col-12 col-lg-8 d-flex flex-column m-auto">
-                        <select name="selectorArea" id="sArea" class="mb-2">
+                        <select name="selectorArea" id="sCat" class="mb-2">
                             <option selected disabled>Categoría</option>
                         </select>
-                        <input type="text" class="mb-2" id="tipoProducto" placeholder="Producto">
-                        <input type="number" class="mb-2" id="precioProducto" step=0.01>
+                        <input type="text" class="mb-2" id="tipoProducto" placeholder="Descripción o producto">
+                        <input type="number" class="mb-2" id="precioProducto" step=0.01 placeholder="$">
                     </form>
                     <button class="btn btn-success texto_blanco mb-2 col-12 col-lg-8" onclick="cargarGasto()">Cargar gasto</button>
                 </div>
@@ -60,7 +60,7 @@
                 <thead>
                     <tr>
                         <th scope="col" class="col-4 text-center">Categoria</th>
-                        <th scope="col" class="col-4 text-center">Gasto</th>
+                        <th scope="col" class="col-4 text-center">Descripción</th>
                         <th scope="col" class="col-4 text-center">Precio</th>
                     </tr>
                 </thead>
