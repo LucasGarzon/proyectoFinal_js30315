@@ -19,43 +19,47 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center text-center">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center text-center">
+                      <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Simulador</a>
-                  </li>                  
+                      <a class="nav-link active" aria-current="page" href="#">Simulador</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://github.com/LucasGarzon/proyectoFinal_js30315/blob/master/javascript/accionesMacro.js">Ir al código</a>
+                    </li>               
                 </ul>
-              </div>
-            </div>
-          </nav>
-    </header>
-    <main class="mainSimulador">
-        <div class="container">
-            <dirv class="row p-4 pb-1 m-auto">
-                <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
-                <p class="texto_blanco">¡Hola <span id="nombreUsuario"></span>! A continuación podrás:</p>
-                <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
-            </dirv>
-        </div>
-        <div class="container">
-            <div class="row col-12 overflow-hidden p-4 m-auto">
-                <h2 class="col-12 mb-4 texto_blanco text-center">Ingresa tus gastos</h2>
-                <div class="text-center">
-                    <button class="btn btn-success texto_blanco mb-2 mx-auto col-12 col-lg-8" onclick="cargarInfo()">Crear nuevas Categorías</button>
-                    <form action="" class="col-12 col-lg-8 d-flex flex-column m-auto">
-                        <select name="selectorArea" id="sCat" class="mb-2">
-                            <option selected disabled>Categoría</option>
-                        </select>
-                        <input type="text" class="mb-2" id="tipoProducto" placeholder="Descripción o producto">
-                        <input type="number" class="mb-2" id="precioProducto" step=0.01 placeholder="$">
-                    </form>
-                    <button class="btn btn-success texto_blanco mb-2 col-12 col-lg-8" onclick="cargarGasto()">Cargar gasto</button>
-                </div>
             </div>
         </div>
-        <div class="col-10 m-auto overflow-scroll pb-5">
+    </nav>
+</header>
+<main class="mainSimulador">
+    <div class="container">
+        <dirv class="row p-4 pb-1 m-auto">
+            <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
+            <p class="texto_blanco">¡Hola <span id="nombreUsuario"></span>! A continuación podrás:</p>
+            <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
+        </dirv>
+    </div>
+    <div class="container">
+        <div class="row col-12 overflow-hidden p-4 m-auto">
+            <h2 class="col-12 mb-4 texto_blanco text-center">Ingresa tus gastos</h2>
+            <div class="text-center">
+                <button class="btn btn-success texto_blanco mb-2 mx-auto col-12 col-lg-8" onclick="cargarInfo()">Crear nuevas Categorías</button>
+                <form action="" class="col-12 col-lg-8 d-flex flex-column m-auto">
+                    <select name="selectorArea" id="sCat" class="mb-2">
+                        <option selected disabled>Categoría</option>
+                    </select>
+                    <input type="text" class="mb-2" id="tipoProducto" placeholder="Descripción o producto">
+                    <input type="number" class="mb-2" id="precioProducto" step=0.01 placeholder="$">
+                </form>
+                <button class="btn btn-success texto_blanco mb-2 col-12 col-lg-8" onclick="cargarGasto()">Cargar gasto</button>
+
+            </div>
+            </div>
+        </div>
+        <div class="col-10 m-auto overflow-scroll pb-5 mb-4">
             <table class="table texto_blanco">
                 <thead>
                     <tr>
