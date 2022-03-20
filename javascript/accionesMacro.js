@@ -1,4 +1,4 @@
-console.log("Simulador de huerta");
+console.log("Simulador de finanzas");
 
 // bienvenida
 let nombre = prompt("Por favor introduzca su nombre");
