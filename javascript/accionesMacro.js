@@ -1,53 +1,88 @@
 console.log("Simulador de finanzas");
 
-// bienvenida
-let nombre = prompt("Por favor introduzca su nombre");
-while (nombre == null || nombre === "" || nombre == parseInt) {
-  nombre = prompt("Por favor, vuelva a introducir su nombre");
-}
-let container = document.getElementById("nombreUsuario");
-container.innerHTML =
-  "<b>" + nombre.charAt(0).toUpperCase() + nombre.slice(1) + "</b>"; // Nombre en mayúscula
-let opt = "";
-function cargarInfo() {
-  let nombreCategoria = [];
-  while (confirm("Desea agregar una nueva categoría")) {
-    let ingresoCategoria = prompt("Ingrese una categría");
-    if (ingresoCategoria != "" && ingresoCategoria != null) {
-      nombreCategoria.push(ingresoCategoria);
-    }
-  }
-  console.log(nombreCategoria);
-  // loop para crear categorías
-  let nuevaCategoria = document.getElementById("sCat");
-  for (let i = 0; i < nombreCategoria.length; i++) {
-    let opt = document.createElement("option");
-    opt.value = nombreCategoria[i];
-    opt.innerHTML =
-      nombreCategoria[i].charAt(0).toUpperCase() + nombreCategoria[i].slice(1); //Primer letra mayúscula
-    nuevaCategoria.appendChild(opt);
-  }
-}
-
+//Variables globales
+const storedElements = localStorage.getItem('memoriaCat')
+let nombreCategoria = [];
 let sumaPrecios = [];
+let opt = "";
+let select = document.getElementById("sCat");
+const arrayGastos = [];
 
-function cargarGasto() {
-  class nuevoGasto {
-    constructor(categoria, producto, precio) {
-      (this.categoria = document.getElementById("sCat").value),
-        (this.producto = document.getElementById("tipoProducto").value),
-        (this.precio = parseFloat(
-          document.getElementById("precioProducto").value
-        ));
-    }
+// Imprimir datos guardados en localStorage
+if (storedElements){
+  nombreCategoria = JSON.parse(storedElements);
+}
+renderOptions()
+
+//Sumar categorias --> onclick
+function cargarInfo() {
+  let ingresoCategoria = document.getElementById("nuevaCategoria").value.trim();
+  let checkArray = nombreCategoria.includes(ingresoCategoria);
+  if (ingresoCategoria && checkArray !== true) {
+    nombreCategoria.push(ingresoCategoria);
+    renderOptions()
+    document.getElementById("nuevaCategoria").value = "";
+    //Guardar en LocalStorage
+    localStorage.setItem('memoriaCat', JSON.stringify(nombreCategoria))
+  } else if (checkArray == true) {
+    alert("Ya existe esa categoria");
   }
-  let imprimir = new nuevoGasto();
-  const arrayGastos = [];
-  arrayGastos.push(imprimir.categoria);
-  arrayGastos.push(imprimir.producto);
-  arrayGastos.push(imprimir.precio.toFixed(2));
+}
+// Escribir categorías en el DOM
+function renderOptions() {
+  select.innerHTML = "";
+  for (const element of nombreCategoria) {
+    let opt = document.createElement("option");
+    opt.value = element;
+    opt.innerHTML = opt.value;
+    select.appendChild(opt);
+  }
+}
+
+// Sumar categoria con tecla "ENTER"
+let nCategoria = document.getElementById("nuevaCategoria");
+nCategoria.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    cargarInfo();
+  }
+});
+
+// eliminar categorias --> addEventListener
+let botonBorrar = document.getElementById("btnBorrar");
+botonBorrar.addEventListener("click", borrarCategoria);
+function borrarCategoria() {
+  let borrarArray = select.value;
+  nombreCategoria = nombreCategoria.filter((e) => e !== borrarArray);
+  select.remove(select.selectedIndex);
+  localStorage.setItem('memoriaCat', JSON.stringify(nombreCategoria))
+}
+
+// Cargar gastos
+function cargarGasto() {
+  // class NuevoGasto {
+  //   constructor(categoria, producto, precio) {
+  //     (this.categoria = categoria),
+  //       (this.producto = producto),
+  //       (this.precio = precio);
+  //   }
+  // }
+  function NuevoGasto(categoria, producto, precio) {
+    this.categoria = categoria;
+    this.producto = producto;
+    this.precio = precio;
+  }
+  categoria = document.getElementById("sCat").value
+  producto = document.getElementById("tipoProducto").value
+  precio = parseFloat(document.getElementById("precioProducto").value)
+  let imprimir = new NuevoGasto(categoria, producto, precio);
+  // const arrayGastos = [];
+  // arrayGastos.push(imprimir.categoria);
+  // arrayGastos.push(imprimir.producto);
+  // arrayGastos.push(imprimir.precio.toFixed(2));
+  arrayGastos.push(imprimir)
   if (
-    imprimir.categoria != "Categoría" &&
+    imprimir.categoria != "Categorías" &&
+    imprimir.categoria != "" &&
     imprimir.producto != "" &&
     imprimir.precio >= 0
   ) {

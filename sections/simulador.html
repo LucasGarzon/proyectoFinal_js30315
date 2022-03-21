@@ -34,59 +34,71 @@
         </div>
     </nav>
 </header>
-<main class="mainSimulador">
+<main class="mainSimulador pb-5">
     <div class="container">
-        <dirv class="row p-4 pb-1 m-auto">
-            <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
-            <p class="texto_blanco">¡Hola <span id="nombreUsuario"></span>!. A continuación podrás:</p>
-            <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
-        </dirv>
+      <div class="row p-4 pb-1 m-auto">
+        <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
+        <p class="texto_blanco">¡Hola! A continuación podrás:</p>
+        <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
+      </div>
     </div>
-    <div class="container">
-        <div class="row col-12 overflow-hidden p-4 m-auto">
-            <h2 class="col-12 mb-4 texto_blanco text-center">Ingresa tus gastos</h2>
-            <div class="text-center">
-                <button class="btn btn-success texto_blanco mb-2 mx-auto col-12 col-lg-8" onclick="cargarInfo()">Crear nuevas Categorías</button>
-                <form action="" class="col-12 col-lg-8 d-flex flex-column m-auto">
-                    <select name="selectorArea" id="sCat" class="mb-2">
-                        <option selected disabled>Categoría</option>
-                    </select>
-                    <input type="text" class="mb-2" id="tipoProducto" placeholder="Descripción o producto">
-                    <input type="number" class="mb-2" id="precioProducto" step=0.01 placeholder="$">
-                </form>
-                <button class="btn btn-success texto_blanco mb-2 col-12 col-lg-8" onclick="cargarGasto()">Cargar gasto</button>
-
+    <div class="container pb-5">
+      <div class="row col-12 overflow-hidden p-4 m-auto ">
+        <h2 class="col-12 mb-4 texto_blanco text-center">Ingresa tus gastos</h2>
+        <div class="text-center">
+          <div class="col-12 col-lg-8 d-flex flex-column m-auto">
+            <div class="border p-3 mb-2">
+              <h3 class="texto_blanco">Crea nuevas categorías</h3>
+              <input type="text" placeholder="Ingresar nueva categoría" class="mb-2 w-100 text-center" id="nuevaCategoria">
+              <button class="btn btn-cargas mb-2 w-100 col-12 col-lg-8" onclick="cargarInfo()" id="nuevaCategoria">Crear nuevas Categorías</button>
             </div>
+            <div class=" border p-3 mb-2 bg">
+              <h3 class="texto_blanco">Selecciona una categoría</h3>
+              <div class="container-fluid m-0 p-0 d-flex flex-row mb-2">
+                <select name="selectorArea" id="sCat" class="m-0 p-0 col-10 text-center">
+                    <option selected disabled>Categorías</option>
+                </select>
+                <button class="col-2 p-1 m-auto btn-danger btn-lg btn-block" id="btnBorrar">X</button>
+              </div>
             </div>
+            <div class="border p-3">
+              <h3 class="texto_blanco">Crea un nuevo gasto</h3>
+              <input type="text" class="mb-2 w-100 text-center" id="tipoProducto" placeholder="Descripción o producto">
+              <input type="number" class="mb-2 w-100 text-center" id="precioProducto" step=0.01 placeholder="$ Precio">
+              <button class="btn btn-cargas mb-2 mx-auto col-12 col-lg-8 w-100"" onclick="cargarGasto()">Cargar gasto</button>
+            </div>
+          </div>
         </div>
-        <div class="col-10 m-auto overflow-scroll pb-5 mb-4">
-            <table class="table texto_blanco">
-                <thead>
-                    <tr>
-                        <th scope="col" class="col-4 text-center">Categoria</th>
-                        <th scope="col" class="col-4 text-center">Descripción</th>
-                        <th scope="col" class="col-4 text-center">Precio</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaGastos">
-                </tbody>
-            </table>         
-            <table class="table texto_blanco mb-5">
-                <thead>
-                    <tr>
-                        <th scope="col" class="col-4 text-center"></th>
-                        <th scope="col" class="col-4 text-center"></th>
-                        <th scope="col" class="col-4 text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td class="col-4 text-center"></td>
-                    <td class="col-4 text-center"></td>
-                    <td class="col-4 text-center" id="tablaTotal">0</td>
-                </tbody>
-            </table>
-        </div>
-</main>
+      </div>
+    </div>
+    <div class="col-10 m-auto overflow-scroll pb-5">
+        <table class="table texto_blanco">
+            <thead class=" bg-tabla">
+                <tr>
+                    <th scope="col" class="col-4 text-center">Categoria</th>
+                    <th scope="col" class="col-4 text-center">Descripción</th>
+                    <th scope="col" class="col-4 text-center">Precio</th>
+                </tr>
+            </thead>
+            <tbody id="tablaGastos">
+            </tbody>
+        </table>         
+        <table class="table texto_blanco mb-5">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-4 text-center"></th>
+                    <th scope="col" class="col-4 text-center"></th>
+                    <th scope="col" class="col-4 text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td class="col-4 text-center"></td>
+                <td class="col-4 text-center"></td>
+                <td class="col-4 text-center" id="tablaTotal">0</td>
+            </tbody>
+        </table>
+    </div>
+  </main>
     <footer class="overflow-hidden">
         <div class="line"></div>
         <div class="container-fluid d-flex flex-column flex-sm-row align-items-center m-0">

@@ -44,12 +44,24 @@ footer a {
     color: #8FA89F;
 }
 
-.btn-success {
+.btn-cargas {
     background-color: #6B847B;
     border: #777A66;
+    color: white;
 }
 
-.btn-success:hover {
+.btn-cargas:hover {
     background-color: #4C4E41;
+    color: white;
 }
+
+.btn-cargas:focus {
+    box-shadow: 0 0 0 .25rem hsla(0, 0%, 100%, 0.521)
+}
+
+
+.bg-tabla {
+    background: #6B847B;
+}
+
 
