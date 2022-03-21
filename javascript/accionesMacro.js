@@ -1,39 +1,39 @@
 console.log("Simulador de finanzas");
 
 //Variables globales
-const storedElements = localStorage.getItem('memoriaCat')
-const storedGastos = localStorage.getItem('memoriaGastos')
-const storedTotal = localStorage.getItem('memoriaTotal')
+const storedElements = localStorage.getItem("memoriaCat");
+const storedGastos = localStorage.getItem("memoriaGastos");
+const storedTotal = localStorage.getItem("memoriaTotal");
 let nombreCategoria = [];
 let sumaPrecios = [];
 let opt = "";
 let select = document.getElementById("sCat");
 let arrayGastos = [];
 // Imprimir datos guardados para las categorias
-if (storedElements){
+if (storedElements) {
   nombreCategoria = JSON.parse(storedElements);
 }
-renderOptions()
+renderOptions();
 // Imprimir datos guardados para los gastos
 if (storedGastos) {
   arrayGastos = JSON.parse(storedGastos);
 }
-renderGastos()
+renderGastos();
 // Imprimir datos guardados para el total de los gastos
 if (storedTotal) {
-  sumaPrecios = JSON.parse(storedTotal)
+  sumaPrecios = JSON.parse(storedTotal);
 }
-renderTotal()
+renderTotal();
 //Sumar nuevas categorias --> onclick
 function cargarInfo() {
   let ingresoCategoria = document.getElementById("nuevaCategoria").value.trim();
   let checkArray = nombreCategoria.includes(ingresoCategoria);
   if (ingresoCategoria && checkArray !== true) {
     nombreCategoria.push(ingresoCategoria);
-    renderOptions()
+    renderOptions();
     document.getElementById("nuevaCategoria").value = "";
     //Guardar en LocalStorage
-    localStorage.setItem('memoriaCat', JSON.stringify(nombreCategoria))
+    localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
   } else if (checkArray == true) {
     alert("Ya existe esa categoria");
   }
@@ -63,7 +63,7 @@ function borrarCategoria() {
   nombreCategoria = nombreCategoria.filter((e) => e !== borrarArray);
   select.remove(select.selectedIndex);
   //Guardar en LocalStorage
-  localStorage.setItem('memoriaCat', JSON.stringify(nombreCategoria))
+  localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
 }
 // Cargar gastos
 function cargarGasto() {
@@ -72,23 +72,23 @@ function cargarGasto() {
     this.producto = producto;
     this.precio = precio;
   }
-  categoria = document.getElementById("sCat").value
-  producto = document.getElementById("tipoProducto").value
-  precio = parseFloat(document.getElementById("precioProducto").value)
+  categoria = document.getElementById("sCat").value;
+  producto = document.getElementById("tipoProducto").value;
+  precio = parseFloat(document.getElementById("precioProducto").value);
   let imprimir = new NuevoGasto(categoria, producto, precio);
   if (
     imprimir.categoria != "Categorías" &&
     imprimir.categoria != "" &&
     imprimir.producto != "" &&
     imprimir.precio >= 0
-    ) {
-    arrayGastos.push(imprimir)
-    renderGastos()
+  ) {
+    arrayGastos.push(imprimir);
+    renderGastos();
     //Guardar en LocalStorage
-    localStorage.setItem('memoriaGastos', JSON.stringify(arrayGastos))
+    localStorage.setItem("memoriaGastos", JSON.stringify(arrayGastos));
     sumaPrecios.push(imprimir.precio);
-    localStorage.setItem('memoriaTotal', JSON.stringify(sumaPrecios))
-    renderTotal()
+    localStorage.setItem("memoriaTotal", JSON.stringify(sumaPrecios));
+    renderTotal();
   } else {
     alert("Algo salió mal =( \nPor favor, revisa todos los datos");
   }
@@ -116,12 +116,12 @@ function renderGastos() {
 }
 // Funcion para renderizar el total de gatos
 function renderTotal() {
-    let sumaTotal = 0;
-    for (let i = 0; i < sumaPrecios.length; i++) {
-      sumaTotal += sumaPrecios[i];
-    }
-    let gastosTotales = document.getElementById("tablaTotal");
-    gastosTotales.innerText = sumaTotal.toFixed(2);
-    document.getElementById("tipoProducto").value = "";
-    document.getElementById("precioProducto").value = "";
+  let sumaTotal = 0;
+  for (let i = 0; i < sumaPrecios.length; i++) {
+    sumaTotal += sumaPrecios[i];
+  }
+  let gastosTotales = document.getElementById("tablaTotal");
+  gastosTotales.innerText = sumaTotal.toFixed(2);
+  document.getElementById("tipoProducto").value = "";
+  document.getElementById("precioProducto").value = "";
 }
