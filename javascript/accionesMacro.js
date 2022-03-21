@@ -2,19 +2,29 @@ console.log("Simulador de finanzas");
 
 //Variables globales
 const storedElements = localStorage.getItem('memoriaCat')
+const storedGastos = localStorage.getItem('memoriaGastos')
+const storedTotal = localStorage.getItem('memoriaTotal')
 let nombreCategoria = [];
 let sumaPrecios = [];
 let opt = "";
 let select = document.getElementById("sCat");
-const arrayGastos = [];
-
-// Imprimir datos guardados en localStorage
+let arrayGastos = [];
+// Imprimir datos guardados para las categorias
 if (storedElements){
   nombreCategoria = JSON.parse(storedElements);
 }
 renderOptions()
-
-//Sumar categorias --> onclick
+// Imprimir datos guardados para los gastos
+if (storedGastos) {
+  arrayGastos = JSON.parse(storedGastos);
+}
+renderGastos()
+// Imprimir datos guardados para el total de los gastos
+if (storedTotal) {
+  sumaPrecios = JSON.parse(storedTotal)
+}
+renderTotal()
+//Sumar nuevas categorias --> onclick
 function cargarInfo() {
   let ingresoCategoria = document.getElementById("nuevaCategoria").value.trim();
   let checkArray = nombreCategoria.includes(ingresoCategoria);
@@ -28,7 +38,7 @@ function cargarInfo() {
     alert("Ya existe esa categoria");
   }
 }
-// Escribir categorías en el DOM
+// Funcion para renderizar las categorias
 function renderOptions() {
   select.innerHTML = "";
   for (const element of nombreCategoria) {
@@ -38,7 +48,6 @@ function renderOptions() {
     select.appendChild(opt);
   }
 }
-
 // Sumar categoria con tecla "ENTER"
 let nCategoria = document.getElementById("nuevaCategoria");
 nCategoria.addEventListener("keypress", function (e) {
@@ -46,7 +55,6 @@ nCategoria.addEventListener("keypress", function (e) {
     cargarInfo();
   }
 });
-
 // eliminar categorias --> addEventListener
 let botonBorrar = document.getElementById("btnBorrar");
 botonBorrar.addEventListener("click", borrarCategoria);
@@ -54,18 +62,11 @@ function borrarCategoria() {
   let borrarArray = select.value;
   nombreCategoria = nombreCategoria.filter((e) => e !== borrarArray);
   select.remove(select.selectedIndex);
+  //Guardar en LocalStorage
   localStorage.setItem('memoriaCat', JSON.stringify(nombreCategoria))
 }
-
 // Cargar gastos
 function cargarGasto() {
-  // class NuevoGasto {
-  //   constructor(categoria, producto, precio) {
-  //     (this.categoria = categoria),
-  //       (this.producto = producto),
-  //       (this.precio = precio);
-  //   }
-  // }
   function NuevoGasto(categoria, producto, precio) {
     this.categoria = categoria;
     this.producto = producto;
@@ -75,27 +76,46 @@ function cargarGasto() {
   producto = document.getElementById("tipoProducto").value
   precio = parseFloat(document.getElementById("precioProducto").value)
   let imprimir = new NuevoGasto(categoria, producto, precio);
-  // const arrayGastos = [];
-  // arrayGastos.push(imprimir.categoria);
-  // arrayGastos.push(imprimir.producto);
-  // arrayGastos.push(imprimir.precio.toFixed(2));
-  arrayGastos.push(imprimir)
   if (
     imprimir.categoria != "Categorías" &&
     imprimir.categoria != "" &&
     imprimir.producto != "" &&
     imprimir.precio >= 0
-  ) {
-    let linea = document.createElement("tr");
-    let imprimirLinea = document.getElementById("tablaGastos");
-    imprimirLinea.appendChild(linea);
-    for (let i = 0; i < arrayGastos.length; i++) {
-      let nuevaLinea = document.createElement("td");
-      nuevaLinea.classList = "col-4 text-center";
-      nuevaLinea.innerHTML = arrayGastos[i];
-      imprimirLinea.appendChild(nuevaLinea);
-    }
+    ) {
+    arrayGastos.push(imprimir)
+    renderGastos()
+    //Guardar en LocalStorage
+    localStorage.setItem('memoriaGastos', JSON.stringify(arrayGastos))
     sumaPrecios.push(imprimir.precio);
+    localStorage.setItem('memoriaTotal', JSON.stringify(sumaPrecios))
+    renderTotal()
+  } else {
+    alert("Algo salió mal =( \nPor favor, revisa todos los datos");
+  }
+}
+// Funcion para renderizar cada gasto en la tabla
+function renderGastos() {
+  let imprimirLinea = document.getElementById("tablaGastos");
+  imprimirLinea.innerHTML = "";
+  for (const element of arrayGastos) {
+    const linea = document.createElement("tr");
+    let lineaCat = document.createElement("td");
+    lineaCat.classList = "col-4 text-center";
+    lineaCat.innerHTML = element.categoria;
+    imprimirLinea.appendChild(lineaCat);
+    let lineaProd = document.createElement("td");
+    lineaProd.classList = "col-4 text-center";
+    lineaProd.innerHTML = element.producto;
+    imprimirLinea.appendChild(lineaProd);
+    let lineaPrecio = document.createElement("td");
+    lineaPrecio.classList = "col-4 text-center";
+    lineaPrecio.innerHTML = element.precio.toFixed(2);
+    imprimirLinea.appendChild(lineaPrecio);
+    imprimirLinea.appendChild(linea);
+  }
+}
+// Funcion para renderizar el total de gatos
+function renderTotal() {
     let sumaTotal = 0;
     for (let i = 0; i < sumaPrecios.length; i++) {
       sumaTotal += sumaPrecios[i];
@@ -104,7 +124,4 @@ function cargarGasto() {
     gastosTotales.innerText = sumaTotal.toFixed(2);
     document.getElementById("tipoProducto").value = "";
     document.getElementById("precioProducto").value = "";
-  } else {
-    alert("Algo salió mal =( \nPor favor, revisa todos los datos");
-  }
 }
