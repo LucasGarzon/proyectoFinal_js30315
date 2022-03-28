@@ -64,4 +64,15 @@ footer a {
     background: #6B847B;
 }
 
+.swal-overlay {
+  background-color: rgba(43, 165, 137, 0.45);
+}
+
+.swal-button {
+    background-color: #6B847B;
+}
+
+.swal-button:hover {
+  background-color: #4C4E41;
+}
 

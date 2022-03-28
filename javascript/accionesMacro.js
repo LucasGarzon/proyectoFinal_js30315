@@ -1,28 +1,14 @@
 console.log("Simulador de finanzas");
 
 //Variables globales
-const storedElements = localStorage.getItem("memoriaCat");
-const storedGastos = localStorage.getItem("memoriaGastos");
-const storedTotal = localStorage.getItem("memoriaTotal");
-let nombreCategoria = [];
-let sumaPrecios = [];
 let opt = "";
 let select = document.getElementById("sCat");
-let arrayGastos = [];
-// Imprimir datos guardados para las categorias
-if (storedElements) {
-  nombreCategoria = JSON.parse(storedElements);
-}
+// Crear arrays globales e imprimir datos guardados en localStorage para los mismos
+let nombreCategoria = JSON.parse(localStorage.getItem("memoriaCat")) || [];
 renderOptions();
-// Imprimir datos guardados para los gastos
-if (storedGastos) {
-  arrayGastos = JSON.parse(storedGastos);
-}
+let arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos")) || [];
 renderGastos();
-// Imprimir datos guardados para el total de los gastos
-if (storedTotal) {
-  sumaPrecios = JSON.parse(storedTotal);
-}
+let sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal")) || [];
 renderTotal();
 //Sumar nuevas categorias --> onclick
 function cargarInfo() {
@@ -34,8 +20,17 @@ function cargarInfo() {
     document.getElementById("nuevaCategoria").value = "";
     //Guardar en LocalStorage
     localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
+    Swal.fire({
+      icon: 'success',
+      title: 'La categoría fue creada',
+      showConfirmButton: false,
+      timer: 1500
+    })
   } else if (checkArray == true) {
-    alert("Ya existe esa categoria");
+    Swal.fire({
+      icon: 'error',
+      title: 'La categoría ya existe',
+    })
   }
 }
 // Funcion para renderizar las categorias
@@ -89,8 +84,20 @@ function cargarGasto() {
     sumaPrecios.push(imprimir.precio);
     localStorage.setItem("memoriaTotal", JSON.stringify(sumaPrecios));
     renderTotal();
+    Toastify({
+      text: "El gasto ha sido ingresado",
+      className: "info",
+      duration: 1500,
+      style: {
+        background: "linear-gradient(to right, #6B847B, #777A66)",
+      }
+    }).showToast();
   } else {
-    alert("Algo salió mal =( \nPor favor, revisa todos los datos");
+    Swal.fire({
+      icon: 'error',
+      title: 'Algo salió mal!',
+      text: 'Por favor, revisa todos los datos',
+    })
   }
 }
 // Funcion para renderizar cada gasto en la tabla
@@ -98,18 +105,20 @@ function renderGastos() {
   let imprimirLinea = document.getElementById("tablaGastos");
   imprimirLinea.innerHTML = "";
   for (const element of arrayGastos) {
+    // Desestructuración
+    let {categoria, producto, precio} = element
     const linea = document.createElement("tr");
     let lineaCat = document.createElement("td");
     lineaCat.classList = "col-4 text-center";
-    lineaCat.innerHTML = element.categoria;
+    lineaCat.innerHTML = categoria;
     imprimirLinea.appendChild(lineaCat);
     let lineaProd = document.createElement("td");
     lineaProd.classList = "col-4 text-center";
-    lineaProd.innerHTML = element.producto;
+    lineaProd.innerHTML = producto;
     imprimirLinea.appendChild(lineaProd);
     let lineaPrecio = document.createElement("td");
     lineaPrecio.classList = "col-4 text-center";
-    lineaPrecio.innerHTML = element.precio.toFixed(2);
+    lineaPrecio.innerHTML = precio.toFixed(2);
     imprimirLinea.appendChild(lineaPrecio);
     imprimirLinea.appendChild(linea);
   }
