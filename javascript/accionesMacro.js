@@ -1,6 +1,5 @@
 console.log("Simulador de finanzas");
-
-
+// Uso de Fetch para cargar categorías sugeridas
 const URL = '/javascript/data/data.json'
 async function addCats() {
   const res = await fetch(URL);
@@ -19,7 +18,6 @@ async function addCats() {
     timer: 1500
   })
 }
-
 //Variables globales
 let opt = "";
 let select = document.getElementById("sCat");
