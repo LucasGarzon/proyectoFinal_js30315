@@ -44,18 +44,24 @@ footer a {
     color: #8FA89F;
 }
 
+.btn-cargas--1 {
+    background-color: #6B847B;
+    border: #777A66;
+    color: white;
+}
+
 .btn-cargas {
     background-color: #6B847B;
     border: #777A66;
     color: white;
 }
 
-.btn-cargas:hover {
+.btn-cargas:hover, .btn-cargas--1:hover {
     background-color: #4C4E41;
     color: white;
 }
 
-.btn-cargas:focus {
+.btn-cargas:focus{
     box-shadow: 0 0 0 .25rem hsla(0, 0%, 100%, 0.521)
 }
 

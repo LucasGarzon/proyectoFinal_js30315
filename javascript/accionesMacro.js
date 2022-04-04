@@ -1,5 +1,25 @@
 console.log("Simulador de finanzas");
 
+
+const URL = '/javascript/data/data.json'
+async function addCats() {
+  const res = await fetch(URL);
+  const data = await res.json();
+  data.forEach ( e => {
+    if (!nombreCategoria.includes(e.title)) {
+      nombreCategoria.push(e.title)    
+    } 
+  })
+  renderOptions()
+  localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
+  Swal.fire({
+    icon: 'success',
+    title: 'Las categorías fueron creadas',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+
 //Variables globales
 let opt = "";
 let select = document.getElementById("sCat");
