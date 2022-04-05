@@ -23,7 +23,7 @@ async function addCats() {
 let opt = "";
 let select = document.getElementById("sCat");
 // Crear arrays globales e imprimir datos guardados en localStorage para los mismos
-let nombreCategoria = JSON.localStorage.getItem("memoriaCat") || [];
+let nombreCategoria = JSON.parse(localStorage.getItem("memoriaCat")) || [];
 renderOptions();
 let arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos")) || [];
 renderGastos();
