@@ -5,9 +5,10 @@ async function addCats() {
   const res = await fetch(URL);
   const data = await res.json();
   data.forEach ( e => {
-    if (!nombreCategoria.includes(e.title)) {
+    if (nombreCategoria.includes(e.title)) {
+    } else {    
       nombreCategoria.push(e.title)    
-    } 
+    }
   })
   renderOptions()
   localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
