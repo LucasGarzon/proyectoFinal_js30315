@@ -1,6 +1,6 @@
 console.log("Simulador de finanzas");
 // Uso de Fetch para cargar categorías sugeridas
-const URL = '/javascript/data/data.json'
+const URL = 'https://lucasgarzon.github.io/proyectoFinal_js30315/javascript/data/data.json'
 async function addCats() {
   const settings = {
     headers : { 
