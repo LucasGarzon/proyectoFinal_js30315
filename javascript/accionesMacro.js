@@ -80,13 +80,17 @@ function borrarCategoria() {
 }
 // Cargar gastos
 function cargarGasto() {
+  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"))
+  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"))
   function NuevoGasto(categoria, producto, precio) {
     this.categoria = categoria;
     this.producto = producto;
+    this.tGasto = tGasto;
     this.precio = precio;
   }
   categoria = document.getElementById("sCat").value;
   producto = document.getElementById("tipoProducto").value;
+  tGasto = document.getElementById("tipoGasto").value;
   precio = parseFloat(document.getElementById("precioProducto").value);
   let imprimir = new NuevoGasto(categoria, producto, precio);
   if (
@@ -124,7 +128,7 @@ function renderGastos() {
   imprimirLinea.innerHTML = "";
   for (const element of arrayGastos) {
     // Desestructuración
-    let {categoria, producto, precio} = element
+    let {categoria, producto, tGasto, precio} = element
     const linea = document.createElement("tr");
     let lineaCat = document.createElement("td");
     lineaCat.classList = "col-4 text-center";
@@ -134,6 +138,10 @@ function renderGastos() {
     lineaProd.classList = "col-4 text-center";
     lineaProd.innerHTML = producto;
     imprimirLinea.appendChild(lineaProd);
+    let lineatGasto = document.createElement("td");
+    lineatGasto.classList = "col-4 text-center";
+    lineatGasto.innerHTML = tGasto;
+    imprimirLinea.appendChild(lineatGasto);
     let lineaPrecio = document.createElement("td");
     lineaPrecio.classList = "col-4 text-center";
     lineaPrecio.innerHTML = precio.toFixed(2);
@@ -151,4 +159,34 @@ function renderTotal() {
   gastosTotales.innerText = sumaTotal.toFixed(2);
   document.getElementById("tipoProducto").value = "";
   document.getElementById("precioProducto").value = "";
+}
+
+// Visualización de tipo de gasto
+function rendertGastos(){
+  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"))
+  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"))
+  const typeGasto = document.getElementById("visualGasto").value;
+  const visualGastos = [];
+  const nuevoTotal = []
+  if (typeGasto === "Fijo") {
+    arrayGastos.forEach(e => {
+      if (e.tGasto === "Fijo") {
+        visualGastos.push(e)
+        nuevoTotal.push(e.precio)
+      } 
+      sumaPrecios = nuevoTotal
+      arrayGastos = visualGastos
+    });
+  } else if (typeGasto === "Variable") {
+    arrayGastos.forEach(e => {
+      if (e.tGasto === "Variable") {
+        visualGastos.push(e)
+        nuevoTotal.push(e.precio)
+      } 
+      sumaPrecios = nuevoTotal
+      arrayGastos = visualGastos
+    });
+  }
+  renderGastos()
+  renderTotal()
 }

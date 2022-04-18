@@ -70,6 +70,10 @@
             <div class="border p-3">
               <h3 class="texto_blanco">Crea un nuevo gasto</h3>
               <input type="text" class="mb-2 w-100 text-center" id="tipoProducto" placeholder="Descripción o producto">
+              <select name="" id="tipoGasto" class="mb-2 w-100 text-center">
+                <option value="Fijo">Gasto Fijo</option>
+                <option value="Variable">Gasto Variable</option>
+              </select>
               <input type="number" class="mb-2 w-100 text-center" id="precioProducto" step=0.01 placeholder="$ Precio">
               <button class="btn btn-cargas mb-2 mx-auto col-12 col-lg-8 w-100"" onclick="cargarGasto()">Cargar gasto</button>
             </div>
@@ -77,30 +81,44 @@
         </div>
       </div>
     </div>
+    <div class="col-10 m-auto pb-5">
+      <select name="" id="visualGasto">
+        <option value="Todo">Ver todo</option>
+        <option value="Fijo">Gastos Fijo</option>
+        <option value="Variable">Gastos Variables</option>
+      </select>
+      <button class="col-1" onclick="rendertGastos()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+          <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+        </svg>
+      </button>
+    </div>
     <div class="col-10 m-auto overflow-scroll pb-5">
         <table class="table texto_blanco">
             <thead class=" bg-tabla">
                 <tr>
                     <th scope="col" class="col-4 text-center">Categoria</th>
                     <th scope="col" class="col-4 text-center">Descripción</th>
+                    <th scope="col" class="col-4 text-center">Tipo</th>
                     <th scope="col" class="col-4 text-center">Precio</th>
                 </tr>
             </thead>
             <tbody id="tablaGastos">
             </tbody>
         </table>         
-        <table class="table texto_blanco mb-5">
-            <thead>
+        <table class="table texto_blanco mb-5 w-100">
+            <thead class="bg-tabla">
                 <tr>
                     <th scope="col" class="col-4 text-center"></th>
                     <th scope="col" class="col-4 text-center"></th>
-                    <th scope="col" class="col-4 text-center">Total</th>
+                    <th scope="col" class="col-4 text-end">Total</th>
                 </tr>
             </thead>
             <tbody>
                 <td class="col-4 text-center"></td>
                 <td class="col-4 text-center"></td>
-                <td class="col-4 text-center" id="tablaTotal">0</td>
+                <td class="col-4 text-end" id="tablaTotal">0</td>
             </tbody>
         </table>
     </div>
