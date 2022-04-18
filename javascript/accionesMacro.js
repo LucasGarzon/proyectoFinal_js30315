@@ -80,8 +80,8 @@ function borrarCategoria() {
 }
 // Cargar gastos
 function cargarGasto() {
-  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"))
-  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"))
+  const typeGasto = document.getElementById("visualGasto")
+  typeGasto.selectedIndex = 0
   function NuevoGasto(categoria, producto, precio) {
     this.categoria = categoria;
     this.producto = producto;
@@ -161,7 +161,7 @@ function renderTotal() {
   document.getElementById("precioProducto").value = "";
 }
 
-// Visualización de tipo de gasto
+// Visualización 
 function rendertGastos(){
   arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"))
   sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"))
