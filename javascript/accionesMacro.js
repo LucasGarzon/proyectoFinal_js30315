@@ -1,22 +1,23 @@
 console.log("Simulador de finanzas");
 // Uso de Fetch para cargar categorías sugeridas
-const URL = 'https://lucasgarzon.github.io/proyectoFinal_js30315/javascript/data/data.json'
+const URL =
+  "https://lucasgarzon.github.io/proyectoFinal_js30315/javascript/data/data.json";
 async function addCats() {
   const res = await fetch(URL);
   const data = await res.json();
-  data.forEach ( e => {
+  data.forEach((e) => {
     if (!nombreCategoria.includes(e.title)) {
-      nombreCategoria.push(e.title)    
-    } 
-  })
-  renderOptions()
+      nombreCategoria.push(e.title);
+    }
+  });
+  renderOptions();
   localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
   Swal.fire({
-    icon: 'success',
-    title: 'Las categorías fueron creadas',
+    icon: "success",
+    title: "Las categorías fueron creadas",
     showConfirmButton: false,
-    timer: 1500
-  })
+    timer: 1500,
+  });
 }
 //Variables globales
 let opt = "";
@@ -39,16 +40,16 @@ function cargarInfo() {
     //Guardar en LocalStorage
     localStorage.setItem("memoriaCat", JSON.stringify(nombreCategoria));
     Swal.fire({
-      icon: 'success',
-      title: 'La categoría fue creada',
+      icon: "success",
+      title: "La categoría fue creada",
       showConfirmButton: false,
-      timer: 1500
-    })
+      timer: 1500,
+    });
   } else if (checkArray == true) {
     Swal.fire({
-      icon: 'error',
-      title: 'La categoría ya existe',
-    })
+      icon: "error",
+      title: "La categoría ya existe",
+    });
   }
 }
 // Funcion para renderizar las categorias
@@ -80,8 +81,8 @@ function borrarCategoria() {
 }
 // Cargar gastos
 function cargarGasto() {
-  const typeGasto = document.getElementById("visualGasto")
-  typeGasto.selectedIndex = 0
+  const typeGasto = document.getElementById("visualGasto");
+  typeGasto.selectedIndex = 0;
   function NuevoGasto(categoria, producto, precio) {
     this.categoria = categoria;
     this.producto = producto;
@@ -112,14 +113,14 @@ function cargarGasto() {
       duration: 1500,
       style: {
         background: "linear-gradient(to right, #6B847B, #777A66)",
-      }
+      },
     }).showToast();
   } else {
     Swal.fire({
-      icon: 'error',
-      title: 'Algo salió mal!',
-      text: 'Por favor, revisa todos los datos',
-    })
+      icon: "error",
+      title: "Algo salió mal!",
+      text: "Por favor, revisa todos los datos",
+    });
   }
 }
 // Funcion para renderizar cada gasto en la tabla
@@ -128,7 +129,7 @@ function renderGastos() {
   imprimirLinea.innerHTML = "";
   for (const element of arrayGastos) {
     // Desestructuración
-    let {categoria, producto, tGasto, precio} = element
+    let { categoria, producto, tGasto, precio } = element;
     const linea = document.createElement("tr");
     let lineaCat = document.createElement("td");
     lineaCat.classList = "col-4 text-center";
@@ -161,32 +162,41 @@ function renderTotal() {
   document.getElementById("precioProducto").value = "";
 }
 
-// Visualización 
-function rendertGastos(){
-  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"))
-  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"))
+// Visualización
+function rendertGastos() {
+  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"));
+  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"));
   const typeGasto = document.getElementById("visualGasto").value;
   const visualGastos = [];
-  const nuevoTotal = []
+  const nuevoTotal = [];
   if (typeGasto === "Fijo") {
-    arrayGastos.forEach(e => {
+    arrayGastos.forEach((e) => {
       if (e.tGasto === "Fijo") {
-        visualGastos.push(e)
-        nuevoTotal.push(e.precio)
-      } 
-      sumaPrecios = nuevoTotal
-      arrayGastos = visualGastos
+        visualGastos.push(e);
+        nuevoTotal.push(e.precio);
+      }
+      sumaPrecios = nuevoTotal;
+      arrayGastos = visualGastos;
     });
   } else if (typeGasto === "Variable") {
-    arrayGastos.forEach(e => {
+    arrayGastos.forEach((e) => {
       if (e.tGasto === "Variable") {
-        visualGastos.push(e)
-        nuevoTotal.push(e.precio)
-      } 
-      sumaPrecios = nuevoTotal
-      arrayGastos = visualGastos
+        visualGastos.push(e);
+        nuevoTotal.push(e.precio);
+      }
+      sumaPrecios = nuevoTotal;
+      arrayGastos = visualGastos;
     });
+  } else if (typeGasto === "Menor") {
+    arrayGastos.sort((a, b) => {
+      return a.precio - b.precio;
+    });
+  } else if (typeGasto === "Mayor") {
+    arrayGastos.sort((a, b) => {
+      return a.precio - b.precio;
+    });
+    arrayGastos.reverse();
   }
-  renderGastos()
-  renderTotal()
+  renderGastos();
+  renderTotal();
 }
