@@ -1,4 +1,5 @@
 console.log("Simulador de finanzas");
+
 // Uso de Fetch para cargar categorías sugeridas
 const URL =
   "https://lucasgarzon.github.io/proyectoFinal_js30315/javascript/data/data.json";
@@ -29,6 +30,7 @@ let arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos")) || [];
 renderGastos();
 let sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal")) || [];
 renderTotal();
+visualGastos();
 //Sumar nuevas categorias --> onclick
 function cargarInfo() {
   let ingresoCategoria = document.getElementById("nuevaCategoria").value.trim();
@@ -83,18 +85,21 @@ function borrarCategoria() {
 function cargarGasto() {
   const typeGasto = document.getElementById("visualGasto");
   typeGasto.selectedIndex = 0;
-  function NuevoGasto(categoria, producto, precio) {
+  function NuevoGasto(fecha, categoria, producto, tGasto, precio) {
+    this.fecha = fecha;
     this.categoria = categoria;
     this.producto = producto;
     this.tGasto = tGasto;
     this.precio = precio;
   }
+  fecha = document.getElementById("date").value;
   categoria = document.getElementById("sCat").value;
   producto = document.getElementById("tipoProducto").value;
   tGasto = document.getElementById("tipoGasto").value;
   precio = parseFloat(document.getElementById("precioProducto").value);
-  let imprimir = new NuevoGasto(categoria, producto, precio);
+  let imprimir = new NuevoGasto(fecha, categoria, producto, tGasto, precio);
   if (
+    imprimir.fecha != "" &&
     imprimir.categoria != "Categorías" &&
     imprimir.categoria != "" &&
     imprimir.producto != "" &&
@@ -107,6 +112,7 @@ function cargarGasto() {
     sumaPrecios.push(imprimir.precio);
     localStorage.setItem("memoriaTotal", JSON.stringify(sumaPrecios));
     renderTotal();
+    visualGastos() 
     Toastify({
       text: "El gasto ha sido ingresado",
       className: "info",
@@ -129,8 +135,12 @@ function renderGastos() {
   imprimirLinea.innerHTML = "";
   for (const element of arrayGastos) {
     // Desestructuración
-    let { categoria, producto, tGasto, precio } = element;
+    let { fecha, categoria, producto, tGasto, precio } = element;
     const linea = document.createElement("tr");
+    let lineaDate = document.createElement("td");
+    lineaDate.classList = "col-4 text-center";
+    lineaDate.innerHTML = fecha;
+    imprimirLinea.appendChild(lineaDate);
     let lineaCat = document.createElement("td");
     lineaCat.classList = "col-4 text-center";
     lineaCat.innerHTML = categoria;
@@ -161,9 +171,8 @@ function renderTotal() {
   document.getElementById("tipoProducto").value = "";
   document.getElementById("precioProducto").value = "";
 }
-
-// Visualización
-function rendertGastos() {
+// Formato de visualización
+function visualGastos() {
   arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"));
   sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"));
   const typeGasto = document.getElementById("visualGasto").value;
@@ -196,6 +205,15 @@ function rendertGastos() {
       return a.precio - b.precio;
     });
     arrayGastos.reverse();
+  } else if (typeGasto === "antiguos") {
+    arrayGastos.sort((a, b) => {
+      return new Date(b.fecha) - new Date(a.fecha);
+    });
+    arrayGastos.reverse();
+  } else {
+    arrayGastos.sort((a, b) => {
+      return new Date(b.fecha) - new Date(a.fecha);
+    });
   }
   renderGastos();
   renderTotal();

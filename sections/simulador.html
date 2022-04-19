@@ -70,6 +70,7 @@
             <div class="border p-3">
               <h3 class="texto_blanco">Crea un nuevo gasto</h3>
               <input type="text" class="mb-2 w-100 text-center" id="tipoProducto" placeholder="Descripción o producto">
+              <input type="date" class="mb-2 w-100 text-center" id="date">
               <select name="" id="tipoGasto" class="mb-2 w-100 text-center">
                 <option value="Fijo">Gasto Fijo</option>
                 <option value="Variable">Gasto Variable</option>
@@ -81,19 +82,22 @@
         </div>
       </div>
     </div>
-    <div class="col-10 m-auto pb-5" onchange="rendertGastos()">
+    <div class="col-10 m-auto pb-5" onchange="visualGastos()">
+      <h2 class="texto_blanco">Ordenar por:</h2>
       <select name="" id="visualGasto">
-        <option value="Todo">Ver todo</option>
+        <option value="Todo">Últimos agregados</option>
         <option value="Fijo">Gastos Fijo</option>
         <option value="Variable">Gastos Variables</option>
         <option value="Menor">Menor a Mayor</option>
         <option value="Mayor">Mayor a Menor</option>
+        <option value="antiguos">Más antiguos</option>
       </select>
     </div>
     <div class="col-10 m-auto overflow-scroll pb-5">
         <table class="table texto_blanco">
             <thead class=" bg-tabla">
                 <tr>
+                    <th scope="col" class="col-4 text-center">Fecha</th>
                     <th scope="col" class="col-4 text-center">Categoria</th>
                     <th scope="col" class="col-4 text-center">Descripción</th>
                     <th scope="col" class="col-4 text-center">Tipo</th>
