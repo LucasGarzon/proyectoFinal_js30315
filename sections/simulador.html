@@ -44,7 +44,7 @@
       <div class="row p-4 pb-1 m-auto">
         <h1 class="text-center texto_blanco mb-4">Simulador de gastos</h1>
         <p class="texto_blanco">¡Hola! A continuación podrás:</p>
-        <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar una descripción para identificarlos.<br>3- Asignar un costo en pesos.</p>
+        <p class="texto_blanco">1- Crear nuevas catégorías para tus gastos.<br>2- Ingresar las fechas de los gastos.<br>3- Ingresar una descripción para identificarlos.<br>4- Definir si son gastos "Fijos" o "Variables".<br>5- Asignar un costo en pesos.</p>
       </div>
     </div>
     <div class="container pb-5">
@@ -57,6 +57,7 @@
               <input type="text" placeholder="Ingresar nueva categoría" class="mb-2 w-100 text-center" id="nuevaCategoria">
               <button class="btn btn-cargas mb-2 w-100 col-12 col-lg-8" onclick="cargarInfo()" id="nuevaCategoria">Crear nuevas Categorías</button>
               <button class="btn btn-cargas--1 mb-2 w-100 col-12 col-lg-8" onclick="addCats()" >Cargar categorías sugeridas</button>
+              <p class="texto_blanco fs-6">*Cargando las categorías sugeridas contarás con una serie de categorías por defecto para identificar tus gastos</p>
             </div>
             <div class=" border p-3 mb-2 bg">
               <h3 class="texto_blanco">Selecciona una categoría</h3>
@@ -97,11 +98,11 @@
         <table class="table texto_blanco">
             <thead class=" bg-tabla">
                 <tr>
-                    <th scope="col" class="col-4 text-center">Fecha</th>
-                    <th scope="col" class="col-4 text-center">Categoria</th>
+                    <th scope="col" class="col-2 text-center">Fecha</th>
+                    <th scope="col" class="col-2 text-center">Categoria</th>
                     <th scope="col" class="col-4 text-center">Descripción</th>
-                    <th scope="col" class="col-4 text-center">Tipo</th>
-                    <th scope="col" class="col-4 text-center">Precio</th>
+                    <th scope="col" class="col-2 text-center">Tipo</th>
+                    <th scope="col" class="col-2 text-center">Precio</th>
                 </tr>
             </thead>
             <tbody id="tablaGastos">

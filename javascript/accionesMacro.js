@@ -137,26 +137,23 @@ function renderGastos() {
     // Desestructuración
     let { fecha, categoria, producto, tGasto, precio } = element;
     const linea = document.createElement("tr");
+    linea.id = "gastoNro" + arrayGastos.indexOf(element)
     let lineaDate = document.createElement("td");
-    lineaDate.classList = "col-4 text-center";
+    lineaDate.classList = "col-2 text-center";
     lineaDate.innerHTML = fecha;
-    imprimirLinea.appendChild(lineaDate);
     let lineaCat = document.createElement("td");
-    lineaCat.classList = "col-4 text-center";
+    lineaCat.classList = "col-2 text-center";
     lineaCat.innerHTML = categoria;
-    imprimirLinea.appendChild(lineaCat);
     let lineaProd = document.createElement("td");
-    lineaProd.classList = "col-4 text-center";
+    lineaProd.classList = "col-2 text-center";
     lineaProd.innerHTML = producto;
-    imprimirLinea.appendChild(lineaProd);
     let lineatGasto = document.createElement("td");
-    lineatGasto.classList = "col-4 text-center";
+    lineatGasto.classList = "col-3 text-center";
     lineatGasto.innerHTML = tGasto;
-    imprimirLinea.appendChild(lineatGasto);
     let lineaPrecio = document.createElement("td");
-    lineaPrecio.classList = "col-4 text-center";
-    lineaPrecio.innerHTML = precio.toFixed(2);
-    imprimirLinea.appendChild(lineaPrecio);
+    lineaPrecio.classList = "col-1 text-center";
+    lineaPrecio.innerHTML = '<span>$</span>' + precio.toFixed(2);
+    linea.append(lineaDate, lineaCat, lineaProd, lineatGasto, lineaPrecio)
     imprimirLinea.appendChild(linea);
   }
 }
@@ -167,7 +164,7 @@ function renderTotal() {
     sumaTotal += sumaPrecios[i];
   }
   let gastosTotales = document.getElementById("tablaTotal");
-  gastosTotales.innerText = sumaTotal.toFixed(2);
+  gastosTotales.innerText = "$" + sumaTotal.toFixed(2);
   document.getElementById("tipoProducto").value = "";
   document.getElementById("precioProducto").value = "";
 }
