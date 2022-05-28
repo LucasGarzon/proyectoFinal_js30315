@@ -28,6 +28,7 @@ let select = document.getElementById("sCat");
 let nombreCategoria = JSON.parse(localStorage.getItem("memoriaCat")) || [];
 renderOptions();
 let arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos")) || [];
+console.log(arrayGastos);
 renderGastos();
 let sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal")) || [];
 renderTotal();
@@ -105,36 +106,38 @@ function cargarGasto() {
     imprimir.categoria != "" &&
     imprimir.producto != "" &&
     imprimir.precio >= 0
-  ) {
-    arrayGastos.push(imprimir);
-    renderGastos();
-
-    //Guardar en LocalStorage
-    localStorage.setItem("memoriaGastos", JSON.stringify(arrayGastos));
-    sumaPrecios.push(imprimir.precio);
-    localStorage.setItem("memoriaTotal", JSON.stringify(sumaPrecios));
-    renderTotal();
-    visualGastos() 
-    Toastify({
-      text: "El gasto ha sido ingresado",
-      className: "info",
-      duration: 1500,
-      style: {
-        background: "linear-gradient(to right, #6B847B, #777A66)",
-      },
-    }).showToast();
-  } else {
-    Swal.fire({
-      icon: "error",
-      title: "Algo salió mal!",
-      text: "Por favor, revisa todos los datos",
-    });
+    ) {
+      console.log(imprimir);
+      console.log(arrayGastos);
+      arrayGastos.push(imprimir);
+      renderGastos();
+      
+      //Guardar en LocalStorage
+      localStorage.setItem("memoriaGastos", JSON.stringify(arrayGastos));
+      sumaPrecios.push(imprimir.precio);
+      localStorage.setItem("memoriaTotal", JSON.stringify(sumaPrecios));
+      renderTotal();
+      visualGastos() 
+      Toastify({
+        text: "El gasto ha sido ingresado",
+        className: "info",
+        duration: 1500,
+        style: {
+          background: "linear-gradient(to right, #6B847B, #777A66)",
+        },
+      }).showToast();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Algo salió mal!",
+        text: "Por favor, revisa todos los datos",
+      });
+    }
   }
-}
-// Funcion para renderizar cada gasto en la tabla
-function renderGastos() {
-  let imprimirLinea = document.getElementById("tablaGastos");
-  imprimirLinea.innerHTML = "";
+  // Funcion para renderizar cada gasto en la tabla
+  function renderGastos() {
+    let imprimirLinea = document.getElementById("tablaGastos");
+    imprimirLinea.innerHTML = "";
   for (const element of arrayGastos) {
     // Desestructuración
     let { fecha, categoria, producto, tGasto, precio } = element;
@@ -172,8 +175,6 @@ function renderTotal() {
 }
 // Formato de visualización
 function visualGastos() {
-  arrayGastos = JSON.parse(localStorage.getItem("memoriaGastos"));
-  sumaPrecios = JSON.parse(localStorage.getItem("memoriaTotal"));
   const typeGasto = document.getElementById("visualGasto").value;
   const visualGastos = [];
   const nuevoTotal = [];
