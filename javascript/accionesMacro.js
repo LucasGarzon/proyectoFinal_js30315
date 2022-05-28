@@ -20,6 +20,7 @@ async function addCats() {
     timer: 1500,
   });
 }
+
 //Variables globales
 let opt = "";
 let select = document.getElementById("sCat");
@@ -107,6 +108,7 @@ function cargarGasto() {
   ) {
     arrayGastos.push(imprimir);
     renderGastos();
+
     //Guardar en LocalStorage
     localStorage.setItem("memoriaGastos", JSON.stringify(arrayGastos));
     sumaPrecios.push(imprimir.precio);
